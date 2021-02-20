@@ -5,26 +5,30 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.example.footballapp.data.team.TeamRepository
 import com.example.footballapp.data.team.remote.response.Team
+import com.example.footballapp.others.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class TeamViewModel @Inject constructor(
-    val teamRepository: TeamRepository,
-    application: Application
-    ) : AndroidViewModel(application) {
+    private val teamRepository: TeamRepository,
+    ) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
-    }
+    private val _isLoadingLiveData = MutableLiveData<Boolean>()
+    val loadingLiveData: LiveData<Boolean> = _isLoadingLiveData
 
-    private val _searchTeam = MutableLiveData<List<Team>>().apply { value = emptyList() }
+    private val _isErrorLiveData = MutableLiveData<Boolean>()
+    val errorLiveData: LiveData<Boolean> = _isErrorLiveData
+
+    private val _searchTeam = MutableLiveData<List<Team>>()
     val searchTeam: LiveData<List<Team>> = _searchTeam
 
-
-    val text: LiveData<String> = _text
-
+    init {
+        _isLoadingLiveData.value = true
+        _isErrorLiveData.value = false
+        _searchTeam.value = emptyList()  //set initial list as empty
+    }
 
     fun handleSearchTeam(query: String){
         viewModelScope.launch {

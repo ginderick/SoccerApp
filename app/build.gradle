@@ -93,7 +93,13 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.3.0"
 
+    //test
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    testImplementation 'androidx.arch.core:core-testing:2.1.0'
 
+    //mockito
+    testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0'
+    testImplementation 'org.mockito:mockito-inline:2.13.0'
 
 
 
