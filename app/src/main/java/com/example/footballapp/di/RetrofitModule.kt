@@ -1,6 +1,5 @@
 package com.example.footballapp.di
 
-import com.example.footballapp.data.team.TeamRepository
 import com.example.footballapp.data.team.remote.TeamApiInterface
 import com.example.footballapp.others.Constants
 import dagger.Module
@@ -22,7 +21,6 @@ object RetrofitModule {
     @Singleton
     @Provides
     fun provideOkHttpClient(): OkHttpClient {
-
         val logging = HttpLoggingInterceptor()
         logging.setLevel(HttpLoggingInterceptor.Level.BODY)
         return OkHttpClient.Builder()

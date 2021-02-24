@@ -1,13 +1,10 @@
 package com.example.footballapp.data.team
-import com.example.footballapp.data.team.remote.TeamApiInterface
-import javax.inject.Inject
 
-class TeamRepository
-@Inject constructor(
-    val apiService: TeamApiInterface
-) {
+import com.example.footballapp.base.BaseResponse
+import com.example.footballapp.others.Resource
+import retrofit2.Response
 
-    suspend fun getSearchTeam(query: String) {
-        apiService.getSearchTeam(query)
-    }
+interface TeamRepository {
+
+    suspend fun getSearchTeam(query: String): Response<BaseResponse>
 }

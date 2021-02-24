@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.Observer
 import com.example.footballapp.R
-import com.example.footballapp.data.team.TeamRepository
+import com.example.footballapp.data.team.TeamRepositoryImpl
+import com.example.footballapp.others.Resource
+import com.example.footballapp.others.Status
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -20,21 +22,33 @@ class TeamFragment : Fragment() {
 //    private lateinit var teamViewModelFactory: TeamViewModelFactory
 
     @Inject
-    lateinit var teamRepository: TeamRepository
+    lateinit var teamRepositoryImpl: TeamRepositoryImpl
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-//        teamViewModelFactory = TeamViewModelFactory(teamRepository)
-//        teamViewModel = ViewModelProvider(this, teamViewModelFactory).get(TeamViewModel::class.java)
+
 
         return inflater.inflate(R.layout.fragment_team, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        teamViewModel.handleSearchTeam("Arsenal")
+        teamViewModel.loadSearchTeam("Arsenal")
+        teamViewModel.searchTeam.observe(viewLifecycleOwner, Observer {response ->
+            when(response.status) {
+                Status.LOADING -> {}
+
+                Status.SUCCESS -> {}
+
+                Status.ERROR -> Toast.makeText(activity, "An error occured", Toast.LENGTH_LONG).show()
+
+            }
+
+
+        })
+
     }
 }

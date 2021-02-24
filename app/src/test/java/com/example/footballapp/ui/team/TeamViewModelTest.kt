@@ -1,60 +1,49 @@
 package com.example.footballapp.ui.team
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.Observer
-import com.example.footballapp.data.team.TeamRepository
-import com.example.footballapp.data.team.remote.response.Team
-import com.nhaarman.mockitokotlin2.eq
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.verify
+import com.example.footballapp.FakeTeamRepositoryImpl
+import com.example.footballapp.others.Resource
+import com.example.footballapp.others.Status
+
+
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.mockito.Mockito.mock
 
 
+
+@ExperimentalCoroutinesApi
 class TeamViewModelTest {
 
     @get:Rule
     val taskExecutorRule = InstantTaskExecutorRule()
 
-    private lateinit var repository: TeamRepository
-    private lateinit var viewModel: TeamViewModel
 
-    private lateinit var _isLoadingLiveData: Observer<Boolean>
-    private lateinit var _isErrorLiveData: Observer<Boolean>
-    private lateinit var _searchTeam: Observer<List<Team>>
+    @get:Rule
+    var mainCoroutineRule = MainCoroutineRule()
+
+    private lateinit var repositoryImpl: FakeTeamRepositoryImpl
+    private lateinit var viewModel: TeamViewModel
 
     @Before
     fun setup() {
-        repository = mock()
-        viewModel = TeamViewModel(repository)
-
-        _isLoadingLiveData = mock()
-        _isErrorLiveData = mock()
-        _searchTeam = mock()
-
-        viewModel.loadingLiveData.observeForever(_isLoadingLiveData)
-        viewModel.errorLiveData.observeForever(_isErrorLiveData)
-        viewModel.searchTeam.observeForever(_searchTeam)
-    }
-
-    fun testGetSearchTeam() {}
-
-    fun testHandleSearchTeam() {}
-
-    @Test
-    fun init_shouldShowLoading() {
-        verify(_isLoadingLiveData).onChanged(eq(true))
+        repositoryImpl = mock(FakeTeamRepositoryImpl::class.java)
+        viewModel = TeamViewModel(FakeTeamRepositoryImpl())
     }
 
     @Test
-    fun init_shouldShowError() {
-        verify(_isErrorLiveData).onChanged(eq(false))
+    fun `test init should show loading`() {
+        val value = viewModel.searchTeam.getOrAwaitValueTest()
+        Assert.assertEquals(Status.LOADING, value.status)
     }
 
     @Test
-    fun init_shouldShowEmptyTeamList() {
-        verify(_searchTeam).onChanged(eq(emptyList()))
+    fun `test loadSearchTeam should return status success`() {
+        viewModel.loadSearchTeam("Arsenal")
+        val value = viewModel.searchTeam.getOrAwaitValueTest()
+        Assert.assertEquals(Status.SUCCESS, value.status)
     }
-
 }

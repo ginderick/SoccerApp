@@ -5,6 +5,7 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 
+
 data class Team(
     @SerializedName("idTeam")
     @Expose
@@ -26,7 +27,12 @@ data class Team(
     @Expose
     val strDescriptionEN: String? = "",
 
+    @SerializedName("teams")
+    @Expose
+    val teams: List<Team>
 
-)
+
+
+    )
 
 

@@ -1,38 +1,49 @@
 package com.example.footballapp.ui.team
 
-import android.app.Application
-import androidx.hilt.lifecycle.ViewModelInject
+
 import androidx.lifecycle.*
+import com.example.footballapp.base.BaseResponse
 import com.example.footballapp.data.team.TeamRepository
-import com.example.footballapp.data.team.remote.response.Team
 import com.example.footballapp.others.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
 class TeamViewModel @Inject constructor(
-    private val teamRepository: TeamRepository,
-    ) : ViewModel() {
+    val teamRepository: TeamRepository
+) : ViewModel() {
 
-    private val _isLoadingLiveData = MutableLiveData<Boolean>()
-    val loadingLiveData: LiveData<Boolean> = _isLoadingLiveData
 
-    private val _isErrorLiveData = MutableLiveData<Boolean>()
-    val errorLiveData: LiveData<Boolean> = _isErrorLiveData
+    private var searchTeamResponse: BaseResponse? = null
 
-    private val _searchTeam = MutableLiveData<List<Team>>()
-    val searchTeam: LiveData<List<Team>> = _searchTeam
+    private val _searchTeam = MutableLiveData<Resource<BaseResponse>>()
+    val searchTeam: LiveData<Resource<BaseResponse>> = _searchTeam
+
 
     init {
-        _isLoadingLiveData.value = true
-        _isErrorLiveData.value = false
-        _searchTeam.value = emptyList()  //set initial list as empty
+        _searchTeam.value = Resource.loading()
     }
 
-    fun handleSearchTeam(query: String){
-        viewModelScope.launch {
-            teamRepository.getSearchTeam(query)
-        }
+    fun loadSearchTeam(query: String) = viewModelScope.launch {
+        safeSearchTeam(query)
     }
+
+    suspend fun safeSearchTeam(query: String) {
+        _searchTeam.value = Resource.loading()
+        val response = teamRepository.getSearchTeam(query)
+        _searchTeam.value = handleSearchTeamResponse(response)
+    }
+
+    private fun handleSearchTeamResponse(response: Response<BaseResponse>): Resource<BaseResponse> {
+        if (response.isSuccessful) {
+            response.body()?.let { resultResponse ->
+                searchTeamResponse = resultResponse
+                return Resource.success(searchTeamResponse ?: resultResponse)
+            }
+        }
+        return Resource.error(response.message())
+    }
+
 }
