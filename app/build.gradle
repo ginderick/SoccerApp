@@ -52,10 +52,26 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.3'
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2'
+    testImplementation 'org.mockito:mockito-core:3.7.7'
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.9.0")
+    testImplementation "android.arch.core:core-testing:1.1.1"
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2"
-    androidTestImplementation "org.mockito:mockito-core:2.28.2"
+    androidTestImplementation "org.mockito:mockito-core:3.7.7"
+    androidTestImplementation 'org.mockito:mockito-android:3.7.7'
+
+
+    //test
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    testImplementation 'androidx.arch.core:core-testing:2.1.0'
+
+    //mockito
+    testImplementation 'org.mockito:mockito-inline:2.13.0'
+
+
+    //truth library
+    testImplementation "com.google.truth:truth:1.1.2"
 
 
     //Gson
@@ -97,17 +113,9 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.3.0"
 
-    //test
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    testImplementation 'androidx.arch.core:core-testing:2.1.0'
 
-    //mockito
 
-    testImplementation 'org.mockito:mockito-inline:2.13.0'
-    testImplementation "org.mockito:mockito-core:2.28.2"
 
-    //truth library
-    testImplementation "com.google.truth:truth:1.1.2"
 
 
 }

@@ -1,46 +1,51 @@
 package com.example.footballapp.ui.team
 
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.example.footballapp.base.BaseResponse
 import com.example.footballapp.data.team.TeamRepository
+import com.example.footballapp.data.team.remote.response.Team
 import com.example.footballapp.others.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
 class TeamViewModel @Inject constructor(
     val teamRepository: TeamRepository
 ) : ViewModel() {
-
-
-    private var searchTeamResponse: BaseResponse? = null
-
-    private val _searchTeam = MutableLiveData<Resource<BaseResponse>>()
-    val searchTeam: LiveData<Resource<BaseResponse>> = _searchTeam
+    val searchTeam = MutableLiveData<Resource<List<Team>>>()
+    var searchTeamResponse: List<Team>? = null
 
 
     init {
-        _searchTeam.value = Resource.loading()
+        searchTeam.value = Resource.loading()
     }
 
-    fun loadSearchTeam(query: String) = viewModelScope.launch {
+    fun searchTeam(query: String) = viewModelScope.launch {
         safeSearchTeam(query)
     }
 
-    suspend fun safeSearchTeam(query: String) {
-        _searchTeam.value = Resource.loading()
+    private suspend fun safeSearchTeam(query: String) {
+        searchTeam.value = Resource.loading()
         val response = teamRepository.getSearchTeam(query)
-        _searchTeam.value = handleSearchTeamResponse(response)
+        searchTeam.value = handleSearchTeamResponse(response)
+
     }
 
-    private fun handleSearchTeamResponse(response: Response<BaseResponse>): Resource<BaseResponse> {
+    private fun handleSearchTeamResponse(response: Response<BaseResponse>): Resource<List<Team>> {
         if (response.isSuccessful) {
             response.body()?.let { resultResponse ->
-                searchTeamResponse = resultResponse
-                return Resource.success(searchTeamResponse ?: resultResponse)
+                val teamResultResponse = resultResponse.teams
+                if (searchTeamResponse == null) {
+                    searchTeamResponse = teamResultResponse
+                }
+                return Resource.success(searchTeamResponse ?: teamResultResponse)
             }
         }
         return Resource.error(response.message())
