@@ -2,6 +2,7 @@ package com.example.footballapp.ui.team
 
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.*
 import com.example.footballapp.base.BaseResponse
 import com.example.footballapp.data.team.TeamRepository
@@ -19,9 +20,9 @@ import javax.inject.Inject
 class TeamViewModel @Inject constructor(
     val teamRepository: TeamRepository
 ) : ViewModel() {
+
     val searchTeam = MutableLiveData<Resource<List<Team>>>()
     var searchTeamResponse: List<Team>? = null
-
 
     init {
         searchTeam.value = Resource.loading()
@@ -32,7 +33,6 @@ class TeamViewModel @Inject constructor(
     }
 
     private suspend fun safeSearchTeam(query: String) {
-        searchTeam.value = Resource.loading()
         val response = teamRepository.getSearchTeam(query)
         searchTeam.value = handleSearchTeamResponse(response)
 
@@ -42,13 +42,9 @@ class TeamViewModel @Inject constructor(
         if (response.isSuccessful) {
             response.body()?.let { resultResponse ->
                 val teamResultResponse = resultResponse.teams
-                if (searchTeamResponse == null) {
-                    searchTeamResponse = teamResultResponse
-                }
-                return Resource.success(searchTeamResponse ?: teamResultResponse)
+                return if (teamResultResponse != null) Resource.success(teamResultResponse) else Resource.error(response.message())
             }
         }
         return Resource.error(response.message())
     }
-
 }

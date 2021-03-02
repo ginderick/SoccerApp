@@ -5,11 +5,10 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 
-
 data class Team(
     @SerializedName("idTeam")
     @Expose
-    val idTeam : String? = "",
+    val idTeam: String? = "",
 
     @SerializedName("strTeam")
     @Expose
@@ -19,6 +18,10 @@ data class Team(
     @Expose
     val strLeague: String? = "",
 
+    @SerializedName("strCountry")
+    @Expose
+    val strCountry: String? = "",
+
     @SerializedName("strStadium")
     @Expose
     val strStadium: String? = "",
@@ -27,12 +30,19 @@ data class Team(
     @Expose
     val strDescriptionEN: String? = "",
 
+    @SerializedName("intFormedYear")
+    @Expose
+    val intFormedYear: String? = "",
+
+    @SerializedName("strTeamBadge")
+    @Expose
+    val strTeamBadge: String? = "",
+
     @SerializedName("teams")
     @Expose
     val teams: List<Team>
 
 
-
-    )
+)
 
 

@@ -9,16 +9,21 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
+import com.bumptech.glide.Glide
 import com.example.footballapp.R
 import com.example.footballapp.data.team.TeamRepositoryImpl
+import com.example.footballapp.data.team.remote.response.Team
+import com.example.footballapp.others.Resource
 import com.example.footballapp.others.Status
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_team.*
@@ -52,19 +57,37 @@ class TeamFragment : Fragment() {
         setupCollapsingToolbarLayout()
 
 
-        teamViewModel.searchTeam("!")
-        teamViewModel.searchTeam.observe(viewLifecycleOwner, { response ->
-            when (response.status) {
+        teamViewModel.searchTeam("Bayern")
+        teamViewModel.searchTeam.observe(viewLifecycleOwner, {
+            when (it.status) {
                 Status.LOADING -> {
+                    progressBarInTeamDetail.visibility = View.VISIBLE
                 }
 
                 Status.SUCCESS -> {
-                    Log.d("TeamFragment", response.data.toString())
+                    it.data?.apply {
+                        tvValueYear.text = this[0].intFormedYear
+                        tvValueCountry.text = this[0].strCountry
+                        tvLeague.text = this[0].strLeague
+                        tvValueDescription.text = this[0].strDescriptionEN
+                        tvValueStadium.text = this[0].strStadium
+
+                        Glide
+                            .with(requireContext())
+                            .load(this[0].strTeamBadge)
+                            .placeholder(R.drawable.ic_image_placeholder)
+                            .into(imageTeamLogo)
+                    }
+                    progressBarInTeamDetail.visibility = View.GONE
                 }
-                Status.ERROR -> Toast.makeText(activity, "An error occured", Toast.LENGTH_LONG)
-                    .show()
+                Status.ERROR -> {
+                    progressBarInTeamDetail.visibility = View.GONE
+                    Toast.makeText(activity, "An error occurred", Toast.LENGTH_LONG)
+                        .show()
+                }
             }
         })
+
     }
 
     private fun setupCollapsingToolbarLayout() {
