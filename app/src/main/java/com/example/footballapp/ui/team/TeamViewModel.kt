@@ -2,18 +2,14 @@ package com.example.footballapp.ui.team
 
 
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.*
-import com.example.footballapp.base.BaseResponse
 import com.example.footballapp.data.team.TeamRepository
 import com.example.footballapp.data.team.remote.response.Team
+import com.example.footballapp.data.team.remote.response.TeamResponse
 import com.example.footballapp.others.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import retrofit2.Response
-import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,11 +17,10 @@ class TeamViewModel @Inject constructor(
     val teamRepository: TeamRepository
 ) : ViewModel() {
 
-    val searchTeam = MutableLiveData<Resource<List<Team>>>()
-    var searchTeamResponse: List<Team>? = null
+    val searchTeamLiveData = MutableLiveData<Resource<List<Team>>>()
 
     init {
-        searchTeam.value = Resource.loading()
+        searchTeamLiveData.value = Resource.loading()
     }
 
     fun searchTeam(query: String) = viewModelScope.launch {
@@ -34,14 +29,15 @@ class TeamViewModel @Inject constructor(
 
     private suspend fun safeSearchTeam(query: String) {
         val response = teamRepository.getSearchTeam(query)
-        searchTeam.value = handleSearchTeamResponse(response)
-
+        searchTeamLiveData.value = handleSearchTeamResponse(response)
     }
 
-    private fun handleSearchTeamResponse(response: Response<BaseResponse>): Resource<List<Team>> {
+    private fun handleSearchTeamResponse(response: Response<TeamResponse>): Resource<List<Team>> {
         if (response.isSuccessful) {
             response.body()?.let { resultResponse ->
+                Log.d("TeamViewModel", resultResponse.toString())
                 val teamResultResponse = resultResponse.teams
+                Log.d("TeamViewModel", resultResponse.teams.toString())
                 return if (teamResultResponse != null) Resource.success(teamResultResponse) else Resource.error(response.message())
             }
         }

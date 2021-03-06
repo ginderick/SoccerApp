@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_league">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.example.footballapp.ui.HomeFragment"
+        android:id="@+id/navigation_league"
+        android:name="com.example.footballapp.ui.league.LeagueFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_league" >
         <action
             android:id="@+id/action_navigation_home_to_navigation_team"
             app:destination="@id/navigation_team" />

@@ -4,6 +4,7 @@ import androidx.lifecycle.map
 import com.example.footballapp.base.BaseResponse
 import com.example.footballapp.data.team.remote.TeamApiInterface
 import com.example.footballapp.data.team.remote.response.Team
+import com.example.footballapp.data.team.remote.response.TeamResponse
 import com.example.footballapp.others.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -16,7 +17,7 @@ class TeamRepositoryImpl
     val apiService: TeamApiInterface
 ) : TeamRepository {
 
-    override suspend fun getSearchTeam(query: String): Response<BaseResponse> {
+    override suspend fun getSearchTeam(query: String): Response<TeamResponse> {
         return apiService.getSearchTeam(query)
     }
 }

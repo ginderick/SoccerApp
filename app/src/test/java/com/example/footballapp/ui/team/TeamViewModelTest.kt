@@ -1,32 +1,19 @@
 package com.example.footballapp.ui.team
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
-import com.example.footballapp.base.BaseResponse
 import com.example.footballapp.data.team.TeamRepositoryImpl
-import com.example.footballapp.data.team.remote.TeamApiInterface
-import com.example.footballapp.data.team.remote.response.Team
-import com.example.footballapp.others.Resource
+import com.example.footballapp.data.team.remote.response.TeamResponse
 import com.example.footballapp.others.Status
-import com.example.footballapp.ui.MockResponseFileReader
+import com.example.footballapp.ui.MainCoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.ResponseBody.Companion.toResponseBody
-import okhttp3.mockwebserver.MockResponse
-import okhttp3.mockwebserver.MockWebServer
 import org.junit.*
 import org.junit.runner.RunWith
-import org.mockito.Mock
 import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnitRunner
 import retrofit2.Response
-import java.net.HttpURLConnection
 
 
 @RunWith(MockitoJUnitRunner::class)
@@ -51,17 +38,17 @@ class TeamViewModelTest {
 
     @Test
     fun `test when view model is created then it should return loading status`() {
-        Assert.assertEquals(Status.LOADING, viewModel.searchTeam.getOrAwaitValueTest().status)
+        Assert.assertEquals(Status.LOADING, viewModel.searchTeamLiveData.getOrAwaitValueTest().status)
     }
 
     @Test
     fun `test when searchTeam is not null then it should return success status `() {
         runBlocking {
             `when`(repositoryImpl.getSearchTeam("TeamName")).thenReturn(Response.success(
-                BaseResponse(listOf())
+                TeamResponse(listOf())
             ))
             viewModel.searchTeam("TeamName")
-            Assert.assertEquals(Status.SUCCESS, viewModel.searchTeam.getOrAwaitValueTest().status)
+            Assert.assertEquals(Status.SUCCESS, viewModel.searchTeamLiveData.getOrAwaitValueTest().status)
         }
     }
 
@@ -72,9 +59,8 @@ class TeamViewModelTest {
             val response = "{\"teams\": null}".toResponseBody("application/json".toMediaTypeOrNull())
             `when`(repositoryImpl.getSearchTeam("TeamName")).thenReturn(Response.error(400, response))
             viewModel.searchTeam("TeamName")
-            Assert.assertEquals(Status.ERROR, viewModel.searchTeam.getOrAwaitValueTest().status)
+            Assert.assertEquals(Status.ERROR, viewModel.searchTeamLiveData.getOrAwaitValueTest().status)
         }
-
     }
 
 

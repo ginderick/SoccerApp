@@ -1,4 +1,4 @@
-package com.example.footballapp.ui.team
+package com.example.footballapp.ui
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers

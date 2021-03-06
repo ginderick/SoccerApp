@@ -1,5 +1,6 @@
 package com.example.footballapp.di
 
+import com.example.footballapp.data.league.remote.LeagueApiInterface
 import com.example.footballapp.data.team.remote.TeamApiInterface
 import com.example.footballapp.others.Constants
 import dagger.Module
@@ -42,6 +43,12 @@ object RetrofitModule {
     @Provides
     fun provideTeamService(retrofit: Retrofit): TeamApiInterface {
         return retrofit.create(TeamApiInterface::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideLeagueService(retrofit: Retrofit): LeagueApiInterface {
+        return retrofit.create(LeagueApiInterface::class.java)
     }
 
 }
