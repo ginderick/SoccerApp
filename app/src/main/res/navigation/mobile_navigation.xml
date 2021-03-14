@@ -3,16 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_league">
+    app:startDestination="@id/navigation_home">
 
     <fragment
         android:id="@+id/navigation_league"
         android:name="com.example.footballapp.ui.league.LeagueFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_league" >
+        android:label="@string/title_league"
+        tools:layout="@layout/fragment_league">
         <action
             android:id="@+id/action_navigation_home_to_navigation_team"
             app:destination="@id/navigation_team" />
+        <argument
+            android:name="league"
+            app:argType="com.example.footballapp.data.league.remote.response.League" />
     </fragment>
 
     <fragment
@@ -30,6 +33,15 @@
     <fragment
         android:id="@+id/navigation_team"
         android:name="com.example.footballapp.ui.team.TeamFragment"
-        android:label="@string/title_home"
+        android:label="@string/title_team"
         tools:layout="@layout/fragment_team" />
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.footballapp.ui.home.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_league"
+            app:destination="@id/navigation_league" />
+    </fragment>
 </navigation>

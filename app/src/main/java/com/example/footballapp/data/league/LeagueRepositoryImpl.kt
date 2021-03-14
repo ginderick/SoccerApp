@@ -26,4 +26,12 @@ class LeagueRepositoryImpl @Inject constructor(
         return leagueDatabase.getLeagueDao().getAllLeagues()
     }
 
+    override suspend fun upsert(league: League) {
+        return leagueDatabase.getLeagueDao().upsertLeague(league)
+    }
+
+    override suspend fun delete(league: League) {
+        return leagueDatabase.getLeagueDao().deleteLeague(league)
+    }
+
 }

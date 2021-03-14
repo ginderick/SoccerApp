@@ -8,13 +8,13 @@ import com.example.footballapp.data.league.remote.response.LeagueResponse
 @Dao
 interface LeagueDao {
 
-//    @Insert(onConflict = OnConflictStrategy.REPLACE)
-//     fun upsert(league: League)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+     suspend fun upsertLeague(league: League)
 
     @Query("SELECT * FROM leagues")
     fun getAllLeagues(): LiveData<List<League>>
 
-//    @Delete
-//     fun deleteArticle(league: League)
+    @Delete
+     suspend fun deleteLeague(league: League)
 
 }

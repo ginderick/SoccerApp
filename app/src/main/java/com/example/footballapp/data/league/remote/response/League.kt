@@ -15,6 +15,10 @@ data class League(
     @PrimaryKey(autoGenerate = true)
     var id: Int? = null,
 
+    @SerializedName("idLeague")
+    @Expose
+    val idLeague: String = "",
+
     @SerializedName("strLeague")
     @Expose
     val strLeague: String = "",
@@ -30,6 +34,5 @@ data class League(
     @SerializedName("strLogo")
     @Expose
     val strLogo: String = "",
-
-    val source: Source?,
+    
 ): Serializable

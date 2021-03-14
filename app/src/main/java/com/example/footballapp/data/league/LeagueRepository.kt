@@ -10,4 +10,6 @@ interface LeagueRepository {
 
     suspend fun getSearchLeague(id: String): Response<LeagueResponse>
     fun getSavedLeagues(): LiveData<List<League>>
+    suspend fun upsert(league: League)
+    suspend fun delete(league: League)
 }

@@ -37,7 +37,7 @@ class DashboardFragment : Fragment() {
         val navController = findNavController()
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_league,
+                R.id.navigation_home,
                 R.id.navigation_dashboard, // set all your top level destinations in here
                 R.id.navigation_notifications
             ) // don't forget the parentheses
