@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="team"
+            type="com.example.footballapp.data.team.remote.response.Team" />
+    </data>
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_8dp"
+        android:onClick="@{clickListener}"
+        app:cardCornerRadius="@dimen/dimen_8dp"
+        app:cardElevation="@dimen/dimen_4dp">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_100dp"
+            android:background="?attr/selectableItemBackground">
+
+            <ImageView
+                android:id="@+id/imgTeamLogo"
+                android:layout_width="@dimen/dimen_100dp"
+                android:layout_height="@dimen/dimen_80dp"
+                android:layout_marginStart="@dimen/dimen_8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvTeamName"
+                android:layout_width="@dimen/dimen_150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:textSize="@dimen/dimen_text_16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/imgTeamLogo"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Team Name" />
+
+            <TextView
+                android:id="@+id/tvTeamStadium"
+                android:layout_width="@dimen/dimen_150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:textSize="@dimen/dimen_text_14sp"
+                app:layout_constraintStart_toEndOf="@+id/imgTeamLogo"
+                app:layout_constraintTop_toBottomOf="@+id/tvTeamName"
+                tools:text="Team Stadium" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

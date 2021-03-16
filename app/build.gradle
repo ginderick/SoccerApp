@@ -23,6 +23,10 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    buildFeatures{
+        dataBinding true
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -62,6 +66,10 @@ dependencies {
     androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2"
     androidTestImplementation "org.mockito:mockito-core:3.7.7"
     androidTestImplementation 'org.mockito:mockito-android:3.7.7'
+    implementation "androidx.preference:preference-ktx:1.1.1"
+
+    //UI
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
 
 
     //test

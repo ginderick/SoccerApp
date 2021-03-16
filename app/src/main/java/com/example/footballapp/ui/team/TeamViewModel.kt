@@ -17,7 +17,8 @@ class TeamViewModel @Inject constructor(
     val teamRepository: TeamRepository
 ) : ViewModel() {
 
-    val searchTeamLiveData = MutableLiveData<Resource<List<Team>>>()
+    val searchTeamLiveData = MutableLiveData<Resource<Team>>()
+    val teamListLiveData = MutableLiveData<Resource<List<Team>>>()
 
     init {
         searchTeamLiveData.value = Resource.loading()
@@ -32,7 +33,26 @@ class TeamViewModel @Inject constructor(
         searchTeamLiveData.value = handleSearchTeamResponse(response)
     }
 
-    private fun handleSearchTeamResponse(response: Response<TeamResponse>): Resource<List<Team>> {
+    private fun handleSearchTeamResponse(response: Response<TeamResponse>): Resource<Team> {
+        if (response.isSuccessful) {
+            response.body()?.let { resultResponse ->
+                val teamResultResponse = resultResponse.teams[0]
+                return if (teamResultResponse != null) Resource.success(teamResultResponse) else Resource.error(response.message())
+            }
+        }
+        return Resource.error(response.message())
+    }
+
+    fun getTeamList(id: String) = viewModelScope.launch {
+        safeGetTeamList(id)
+    }
+
+    private suspend fun safeGetTeamList(id: String) {
+        val response = teamRepository.getTeamList(id)
+        teamListLiveData.value = handleGetTeamListResponse(response)
+    }
+
+    private fun handleGetTeamListResponse(response: Response<TeamResponse>): Resource<List<Team>> {
         if (response.isSuccessful) {
             response.body()?.let { resultResponse ->
                 Log.d("TeamViewModel", resultResponse.toString())

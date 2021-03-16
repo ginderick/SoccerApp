@@ -3,12 +3,13 @@ package com.example.footballapp.data.team.remote.response
 import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 
 data class Team(
     @SerializedName("idTeam")
     @Expose
-    val idTeam: String? = "",
+    val idTeam: String = "",
 
     @SerializedName("strTeam")
     @Expose
@@ -41,8 +42,6 @@ data class Team(
     @SerializedName("teams")
     @Expose
     val teams: List<Team>
-
-
-)
+): Serializable
 
 

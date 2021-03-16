@@ -10,5 +10,6 @@ import retrofit2.Response
 
 interface TeamRepository {
 
-    suspend fun getSearchTeam(query: String): Response<TeamResponse>
+    suspend fun getSearchTeam(id: String): Response<TeamResponse>
+    suspend fun getTeamList(id: String): Response<TeamResponse>
 }

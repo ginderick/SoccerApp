@@ -29,8 +29,7 @@
             android:layout_marginVertical="@dimen/dimen_10dp"
             android:gravity="center"
             android:textSize="@dimen/dimen_text_16sp"
-            tools:text="@tools:sample/first_names" />
-
+            tools:text="Leagues" />
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

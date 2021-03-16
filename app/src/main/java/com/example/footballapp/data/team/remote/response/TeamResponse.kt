@@ -7,5 +7,5 @@ data class TeamResponse(
 
     @SerializedName("teams")
     @Expose
-    val teams: List<Team>?
+    val teams: List<Team>
 )

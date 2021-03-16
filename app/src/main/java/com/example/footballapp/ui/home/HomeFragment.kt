@@ -78,7 +78,6 @@ class HomeFragment : Fragment() {
 
         homeViewModel.getSavedLeague().observe(viewLifecycleOwner,  {
             homeAdapter.differ.submitList(it)
-
         })
     }
 

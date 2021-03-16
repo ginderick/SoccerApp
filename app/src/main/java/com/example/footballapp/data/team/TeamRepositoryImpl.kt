@@ -17,7 +17,11 @@ class TeamRepositoryImpl
     val apiService: TeamApiInterface
 ) : TeamRepository {
 
-    override suspend fun getSearchTeam(query: String): Response<TeamResponse> {
-        return apiService.getSearchTeam(query)
+    override suspend fun getSearchTeam(id: String): Response<TeamResponse> {
+        return apiService.getSearchTeam(id)
+    }
+
+    override suspend fun getTeamList(id: String): Response<TeamResponse> {
+        return apiService.getTeamList(id)
     }
 }

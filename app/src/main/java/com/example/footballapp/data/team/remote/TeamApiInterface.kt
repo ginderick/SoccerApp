@@ -8,9 +8,15 @@ import retrofit2.http.Query
 
 interface TeamApiInterface {
 
-    @GET("searchteams.php")
+    @GET("lookupteam.php")
     suspend fun getSearchTeam(
-        @Query("t")
+        @Query("id")
         id: String
         ): Response<TeamResponse>
+
+    @GET("lookup_all_teams.php")
+    suspend fun getTeamList(
+        @Query("id")
+        id: String
+    ): Response<TeamResponse>
 }
