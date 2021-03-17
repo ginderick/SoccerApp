@@ -33,7 +33,7 @@
     <string name="label_league">League</string>
     <string name="label_year">Year</string>
     <string name="label_stadium">Stadium</string>
-    <string name="label_description">Description</string>
+    <string name="label_description">History</string>
     <string name="label_detail_team">Detail Team</string>
     <string name="hint_search">Search</string>
     <string name="label_favorite">Favorite</string>

@@ -75,8 +75,6 @@ class LeagueFragment : Fragment() {
                         .placeholder(R.drawable.ic_image_placeholder)
                         .into(imgLeague)
 
-                    leagueViewModel.saveLeague(it.data!!)
-
                     progressBarInLeague.visibility = View.GONE
                 }
 

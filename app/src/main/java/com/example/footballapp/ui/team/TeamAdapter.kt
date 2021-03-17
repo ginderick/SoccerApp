@@ -22,23 +22,6 @@ import kotlinx.android.synthetic.main.item_teams.view.*
 class TeamAdapter() :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    /**
-     * Provide a reference to the type of views that you are using
-     * (custom ViewHolder).
-     */
-//    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-//        fun bind(data: Team) {
-//            with(itemView) {
-//                tvTeamName.text = data.strTeam
-//
-//                Glide.with(itemView.context)
-//                    .load(data.strTeamBadge)
-//                    .into(imgTeamLogo)
-//            }
-//        }
-//    }
-
-
     private val differCallback = object : DiffUtil.ItemCallback<Team>() {
         override fun areItemsTheSame(oldItem: Team, newItem: Team): Boolean {
             return oldItem.idTeam == newItem.idTeam
@@ -66,37 +49,12 @@ class TeamAdapter() :
         )
     }
 
-
-//    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-//        val team = differ.currentList[position]
-//        viewHolder.bind(team)
-//
-//        viewHolder.itemView.setOnClickListener {
-//            val bundle = Bundle().apply {
-//                putString("team", team.idTeam)
-//            }
-//            it.findNavController().navigate(
-//                R.id.action_navigation_league_to_navigation_team_detail,
-//                bundle
-//            )
-//
-//        }
-//    }
-
     override fun getItemCount() = differ.currentList.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val team = differ.currentList[position]
         (holder as TeamViewHolder).bind(team)
     }
-
-//    fun setOnItemClickListener(listener: (Team) -> Unit) {
-//        Log.d("TeamAdapter", "Adapter click listener called")
-//        onItemClickListener = listener
-//    }
-//
-//    private var onItemClickListener: ((Team) -> Unit)? = null
-
 }
 
 class TeamViewHolder(
