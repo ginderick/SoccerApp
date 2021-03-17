@@ -4,6 +4,9 @@ import com.example.footballapp.data.league.LeagueRepository
 import com.example.footballapp.data.league.LeagueRepositoryImpl
 import com.example.footballapp.data.league.db.LeagueDatabase
 import com.example.footballapp.data.league.remote.LeagueApiInterface
+import com.example.footballapp.data.match.MatchRepository
+import com.example.footballapp.data.match.MatchRepositoryImpl
+import com.example.footballapp.data.match.remote.MatchApiInterface
 import com.example.footballapp.data.team.TeamRepositoryImpl
 import com.example.footballapp.data.team.TeamRepository
 import com.example.footballapp.data.team.remote.TeamApiInterface
@@ -30,4 +33,10 @@ object RepositoryModule {
         apiService: LeagueApiInterface,
         leagueDatabase: LeagueDatabase
     ) = LeagueRepositoryImpl(apiService, leagueDatabase) as LeagueRepository
+
+    @Provides
+    @ViewModelScoped
+    fun provideMatchRepository(
+        apiService: MatchApiInterface
+    ) = MatchRepositoryImpl(apiService) as MatchRepository
 }
