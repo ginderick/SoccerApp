@@ -17,11 +17,14 @@ class TeamViewModel @Inject constructor(
     val teamRepository: TeamRepository
 ) : ViewModel() {
 
-    val searchTeamLiveData = MutableLiveData<Resource<Team>>()
-    val teamListLiveData = MutableLiveData<Resource<List<Team>>>()
+    private val _searchTeamLiveData = MutableLiveData<Resource<Team>>()
+    val searchTeamLiveData = _searchTeamLiveData
+
+    private val _teamListLiveData = MutableLiveData<Resource<List<Team>>>()
+    val teamListLiveData = _teamListLiveData
 
     init {
-        searchTeamLiveData.value = Resource.loading()
+        _searchTeamLiveData.value = Resource.loading()
     }
 
     fun searchTeam(query: String) = viewModelScope.launch {
@@ -30,7 +33,7 @@ class TeamViewModel @Inject constructor(
 
     private suspend fun safeSearchTeam(query: String) {
         val response = teamRepository.getSearchTeam(query)
-        searchTeamLiveData.value = handleSearchTeamResponse(response)
+        _searchTeamLiveData.value = handleSearchTeamResponse(response)
     }
 
     private fun handleSearchTeamResponse(response: Response<TeamResponse>): Resource<Team> {
@@ -49,7 +52,7 @@ class TeamViewModel @Inject constructor(
 
     private suspend fun safeGetTeamList(id: String) {
         val response = teamRepository.getTeamList(id)
-        teamListLiveData.value = handleGetTeamListResponse(response)
+        _teamListLiveData.value = handleGetTeamListResponse(response)
     }
 
     private fun handleGetTeamListResponse(response: Response<TeamResponse>): Resource<List<Team>> {

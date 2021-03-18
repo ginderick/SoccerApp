@@ -27,6 +27,11 @@ data class Team(
     @Expose
     val strStadium: String? = "",
 
+
+    @SerializedName("strStadiumThumb")
+    @Expose
+    val strStadiumThumb: String? = "",
+
     @SerializedName("strDescriptionEN")
     @Expose
     val strDescriptionEN: String? = "",
@@ -42,6 +47,6 @@ data class Team(
     @SerializedName("teams")
     @Expose
     val teams: List<Team>
-): Serializable
+) : Serializable
 
 

@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -70,6 +69,12 @@ class TeamDetailFragment : Fragment() {
                         tvValueDescription.text = this.strDescriptionEN
                         tvValueStadium.text = this.strStadium
                         toolbarLayout.title = this.strTeam
+
+                        Glide
+                            .with(requireContext())
+                            .load(this.strStadiumThumb)
+                            .placeholder(R.drawable.ic_image_placeholder)
+                            .into(img_team_stadium)
 
                         Glide
                             .with(requireContext())

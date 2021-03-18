@@ -166,7 +166,16 @@
                         android:layout_marginRight="20dp"
                         android:background="@color/colorGrey2" />
 
+                    <ImageView
+                        android:id="@+id/img_team_stadium"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dimen_150dp"
+                        android:layout_marginStart="@dimen/dimen_20dp"
+                        android:layout_marginEnd="@dimen/dimen_20dp"
+                        android:scaleType="center"/>
+
                     <TextView
+                        android:id="@+id/tv_stadium"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
@@ -174,7 +183,8 @@
                         android:text="@string/label_stadium"
                         android:textColor="@color/colorBlack"
                         android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:gravity="center"/>
 
                     <TextView
                         android:id="@+id/tvValueStadium"

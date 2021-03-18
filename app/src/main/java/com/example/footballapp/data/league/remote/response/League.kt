@@ -19,6 +19,10 @@ data class League(
     @Expose
     val idLeague: String = "",
 
+    @SerializedName("strCountry")
+    @Expose
+    val strCountry: String = "",
+
     @SerializedName("strLeague")
     @Expose
     val strLeague: String = "",

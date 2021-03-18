@@ -7,25 +7,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.footballapp.R
 import com.example.footballapp.databinding.FragmentTeamBinding
 import com.example.footballapp.others.Status
-import com.example.footballapp.ui.home.HomeAdapter
-import com.example.footballapp.ui.notifications.NotificationsViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_team.*
-import kotlinx.android.synthetic.main.fragment_team_detail.*
 
 @AndroidEntryPoint
 class TeamFragment : Fragment() {
@@ -67,7 +56,7 @@ class TeamFragment : Fragment() {
 
                 Status.SUCCESS -> {
                     teamAdapter.differ.submitList(it.data)
-                    Log.d("TeamFragment", it.data.toString())
+
                     progressBarInTeam.visibility = View.GONE
                 }
 
@@ -78,17 +67,6 @@ class TeamFragment : Fragment() {
                 }
             }
         })
-
-//        teamAdapter.setOnItemClickListener {
-//            Log.d("TeamFragment", it.idTeam)
-//            val bundle = Bundle().apply {
-//                putSerializable("team", it)
-//            }
-//            findNavController().navigate(
-//                R.id.action_navigation_league_to_navigation_team_detail,
-//                bundle
-//            )
-//        }
     }
 
     private fun setupSharedLeagueIdPref() {

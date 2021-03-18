@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/ic_baseline_expand_less_24"
+        android:state_pressed="true"/> <!-- pressed -->
+    <item android:state_focused="true"
+        android:drawable="@drawable/ic_baseline_expand_more_24" /> <!-- focused -->
+    <item
+        android:drawable="@drawable/ic_baseline_expand_more_24" /> <!-- default -->
+</selector>

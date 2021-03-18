@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="clickListener"
             type="android.view.View.OnClickListener" />
@@ -20,8 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dimen_8dp"
         android:onClick="@{clickListener}"
-        app:cardCornerRadius="@dimen/dimen_8dp"
-        app:cardElevation="@dimen/dimen_4dp">
+        app:cardCornerRadius="@dimen/dimen_8dp">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout

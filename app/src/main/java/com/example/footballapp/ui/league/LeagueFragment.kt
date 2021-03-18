@@ -67,14 +67,13 @@ class LeagueFragment : Fragment() {
 
                 Status.SUCCESS -> {
                     textViewLeagueName.text = it.data?.strLeague
-                    textViewLeagueCountry.text = it.data?.strLeague
+                    textViewLeagueCountry.text = it.data?.strCountry
 
                     Glide
                         .with(requireContext())
                         .load(it.data?.strBadge)
                         .placeholder(R.drawable.ic_image_placeholder)
                         .into(imgLeague)
-
                     progressBarInLeague.visibility = View.GONE
                 }
 

@@ -9,6 +9,9 @@ data class Match(
     @Expose
     val idEvent: String = "",
 
+    @SerializedName("strLeague")
+    val strLeague: String = "",
+
     @SerializedName("strHomeTeam")
     val strHomeTeam: String = "",
 
@@ -33,4 +36,4 @@ data class Match(
     @SerializedName("strThumb")
     val strThumb: String = "",
 
-): Serializable
+    ) : Serializable
