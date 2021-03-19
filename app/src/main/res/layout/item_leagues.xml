@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground">
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <ImageView
             android:id="@+id/imgLeagues"
             android:layout_width="@dimen/dimen_100dp"
             android:layout_height="@dimen/dimen_100dp"
@@ -21,7 +21,7 @@
             android:layout_marginTop="@dimen/dimen_10dp"
              />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <TextView
             android:id="@+id/tvLeagueName"
             style="@style/BaseTextView"
             android:layout_below="@+id/imgLeagues"

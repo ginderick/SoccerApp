@@ -3,13 +3,13 @@ package com.example.footballapp.ui.team
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.footballapp.databinding.FragmentTeamBinding
 import com.example.footballapp.others.Status
@@ -23,29 +23,24 @@ class TeamFragment : Fragment() {
     private lateinit var teamAdapter: TeamAdapter
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var leagueId: String
-    private lateinit var teamId: String
 
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-//        val root = inflater.inflate(R.layout.fragment_team, container, false)
-//        return root
-
+    ): View {
         val binding = FragmentTeamBinding.inflate(inflater, container, false)
         context ?: return binding.root
 
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setupRecyclerView()
-        setupSharedLeagueIdPref()
+        getLeagueSharedPref()
 
         teamViewModel.getTeamList(leagueId)
         teamViewModel.teamListLiveData.observe(viewLifecycleOwner, {
@@ -68,7 +63,7 @@ class TeamFragment : Fragment() {
         })
     }
 
-    private fun setupSharedLeagueIdPref() {
+    private fun getLeagueSharedPref() {
         sharedPreferences = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
         leagueId = sharedPreferences.getString("league", "4328")!!
     }
@@ -77,7 +72,7 @@ class TeamFragment : Fragment() {
         teamAdapter = TeamAdapter()
         rvTeamFragment.apply {
             adapter = teamAdapter
-            layoutManager = LinearLayoutManager(activity)
+            layoutManager = GridLayoutManager(activity, 2,)
         }
     }
 }

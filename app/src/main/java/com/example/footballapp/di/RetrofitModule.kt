@@ -2,6 +2,7 @@ package com.example.footballapp.di
 
 import com.example.footballapp.data.league.remote.LeagueApiInterface
 import com.example.footballapp.data.match.remote.MatchApiInterface
+import com.example.footballapp.data.standing.remote.StandingApiInterface
 import com.example.footballapp.data.team.remote.TeamApiInterface
 import com.example.footballapp.others.Constants
 import dagger.Module
@@ -56,6 +57,12 @@ object RetrofitModule {
     @Provides
     fun provideMatchService(retrofit: Retrofit): MatchApiInterface {
         return retrofit.create(MatchApiInterface::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideStandingService(retrofit: Retrofit): StandingApiInterface {
+        return retrofit.create(StandingApiInterface::class.java)
     }
 
 }

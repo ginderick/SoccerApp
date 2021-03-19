@@ -40,7 +40,7 @@ class TeamViewModel @Inject constructor(
         if (response.isSuccessful) {
             response.body()?.let { resultResponse ->
                 val teamResultResponse = resultResponse.teams
-                return if (teamResultResponse != null) Resource.success(teamResultResponse) else Resource.error(response.message())
+                return Resource.success(teamResultResponse)
             }
         }
         return Resource.error(response.message())
@@ -61,7 +61,7 @@ class TeamViewModel @Inject constructor(
                 Log.d("TeamViewModel", resultResponse.toString())
                 val teamResultResponse = resultResponse.teams
                 Log.d("TeamViewModel", resultResponse.teams.toString())
-                return if (teamResultResponse != null) Resource.success(teamResultResponse) else Resource.error(response.message())
+                return Resource.success(teamResultResponse)
             }
         }
         return Resource.error(response.message())

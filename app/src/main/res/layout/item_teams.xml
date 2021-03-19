@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="clickListener"
             type="android.view.View.OnClickListener" />
@@ -15,49 +16,42 @@
 
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dimen_8dp"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_margin="@dimen/dimen_10dp"
         android:onClick="@{clickListener}"
         app:cardCornerRadius="@dimen/dimen_8dp">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_100dp"
+            android:layout_height="match_parent"
             android:background="?attr/selectableItemBackground">
 
             <ImageView
                 android:id="@+id/imgTeamLogo"
-                android:layout_width="@dimen/dimen_100dp"
-                android:layout_height="@dimen/dimen_80dp"
-                android:layout_marginStart="@dimen/dimen_8dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:scaleType="center"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tvTeamName"
-                android:layout_width="@dimen/dimen_150dp"
+                android:layout_width="@dimen/dimen_100dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:textSize="@dimen/dimen_text_16sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/imgTeamLogo"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Team Name" />
-
-            <TextView
-                android:id="@+id/tvTeamStadium"
-                android:layout_width="@dimen/dimen_150dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
                 android:textSize="@dimen/dimen_text_14sp"
-                app:layout_constraintStart_toEndOf="@+id/imgTeamLogo"
-                app:layout_constraintTop_toBottomOf="@+id/tvTeamName"
-                tools:text="Team Stadium" />
+                android:textStyle="bold"
+                android:layout_marginBottom="@dimen/dimen_10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imgTeamLogo"
+                tools:text="Team Name" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

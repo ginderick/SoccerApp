@@ -120,7 +120,7 @@ class LeagueFragment : Fragment() {
     private fun setupSharedLeagueIdPref(leagueId: String) {
         sharedPreferences = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
         with (sharedPreferences.edit()) {
-            putString("league", leagueId)
+            putString("league", null)
             apply()
         }
     }
