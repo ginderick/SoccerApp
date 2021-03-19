@@ -56,7 +56,6 @@ class TeamFragment : Fragment() {
 
                 Status.SUCCESS -> {
                     teamAdapter.differ.submitList(it.data)
-
                     progressBarInTeam.visibility = View.GONE
                 }
 

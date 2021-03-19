@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:background="@color/colorPrimary"
+    android:fitsSystemWindows="true"
     tools:context=".ui.team.TeamDetailFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -25,16 +25,15 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                >
+                android:layout_height="match_parent">
 
 
                 <ImageView
                     android:id="@+id/imageTeamLogo"
                     android:layout_width="200dp"
                     android:layout_height="150dp"
-                    app:layout_collapseMode="parallax"
                     android:scaleType="fitCenter"
+                    app:layout_collapseMode="parallax"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -62,15 +61,14 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="50dp"
-            >
+            android:paddingBottom="50dp">
 
             <ProgressBar
                 android:id="@+id/progressBarInTeamDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_anchorGravity="center"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="250dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -166,25 +164,19 @@
                         android:layout_marginRight="20dp"
                         android:background="@color/colorGrey2" />
 
-                    <ImageView
-                        android:id="@+id/img_team_stadium"
+                    <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dimen_150dp"
                         android:layout_marginStart="@dimen/dimen_20dp"
                         android:layout_marginEnd="@dimen/dimen_20dp"
-                        android:scaleType="center"/>
+                        app:cardCornerRadius="@dimen/dimen_8dp">
 
-                    <TextView
-                        android:id="@+id/tv_stadium"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/label_stadium"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:gravity="center"/>
+                        <ImageView
+                            android:id="@+id/img_team_stadium"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dimen_150dp"
+                            android:scaleType="center" />
+                    </androidx.cardview.widget.CardView>
 
                     <TextView
                         android:id="@+id/tvValueStadium"
@@ -192,8 +184,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="4dp"
+                        android:gravity="center"
                         android:textColor="@color/colorBlack"
-                        tools:text="@tools:sample/lorem/random" />
+                        android:textStyle="italic"
+                        tools:text="Stadium" />
 
                     <View
                         android:layout_width="match_parent"

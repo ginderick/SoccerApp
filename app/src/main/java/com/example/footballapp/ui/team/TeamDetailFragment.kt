@@ -57,30 +57,31 @@ class TeamDetailFragment : Fragment() {
         teamViewModel.searchTeam(team.idTeam)
         teamViewModel.searchTeamLiveData.observe(viewLifecycleOwner, {
             when (it.status) {
-                Status.LOADING -> {
-                    progressBarInTeamDetail.visibility = View.VISIBLE
-                }
+                Status.LOADING ->  progressBarInTeamDetail.visibility = View.VISIBLE
+
 
                 Status.SUCCESS -> {
                     it.data?.apply {
-                        tvValueYear.text = team.intFormedYear
-                        tvValueCountry.text = this.strCountry
-                        tvLeague.text = this.strLeague
-                        tvValueDescription.text = this.strDescriptionEN
-                        tvValueStadium.text = this.strStadium
-                        toolbarLayout.title = this.strTeam
+                        forEach { team ->
+                            tvValueYear.text = team.intFormedYear
+                            tvValueCountry.text = team.strCountry
+                            tvLeague.text = team.strLeague
+                            tvValueDescription.text = team.strDescriptionEN
+                            tvValueStadium.text = team.strStadium
+                            toolbarLayout.title = team.strTeam
 
-                        Glide
-                            .with(requireContext())
-                            .load(this.strStadiumThumb)
-                            .placeholder(R.drawable.ic_image_placeholder)
-                            .into(img_team_stadium)
+                            Glide
+                                .with(requireContext())
+                                .load(team.strStadiumThumb)
+                                .placeholder(R.drawable.ic_image_placeholder)
+                                .into(img_team_stadium)
 
-                        Glide
-                            .with(requireContext())
-                            .load(this.strTeamBadge)
-                            .placeholder(R.drawable.ic_image_placeholder)
-                            .into(imageTeamLogo)
+                            Glide
+                                .with(requireContext())
+                                .load(team.strTeamBadge)
+                                .placeholder(R.drawable.ic_image_placeholder)
+                                .into(imageTeamLogo)
+                        }
                     }
                     progressBarInTeamDetail.visibility = View.GONE
                 }

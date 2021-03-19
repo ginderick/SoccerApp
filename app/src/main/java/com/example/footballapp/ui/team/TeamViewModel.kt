@@ -17,7 +17,7 @@ class TeamViewModel @Inject constructor(
     val teamRepository: TeamRepository
 ) : ViewModel() {
 
-    private val _searchTeamLiveData = MutableLiveData<Resource<Team>>()
+    private val _searchTeamLiveData = MutableLiveData<Resource<List<Team>>>()
     val searchTeamLiveData = _searchTeamLiveData
 
     private val _teamListLiveData = MutableLiveData<Resource<List<Team>>>()
@@ -36,10 +36,10 @@ class TeamViewModel @Inject constructor(
         _searchTeamLiveData.value = handleSearchTeamResponse(response)
     }
 
-    private fun handleSearchTeamResponse(response: Response<TeamResponse>): Resource<Team> {
+    private fun handleSearchTeamResponse(response: Response<TeamResponse>): Resource<List<Team>> {
         if (response.isSuccessful) {
             response.body()?.let { resultResponse ->
-                val teamResultResponse = resultResponse.teams[0]
+                val teamResultResponse = resultResponse.teams
                 return if (teamResultResponse != null) Resource.success(teamResultResponse) else Resource.error(response.message())
             }
         }
