@@ -42,9 +42,6 @@ class TeamAdapter() :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val team = differ.currentList[position]
         (holder as TeamViewHolder).bind(team)
-
-
-
     }
 }
 

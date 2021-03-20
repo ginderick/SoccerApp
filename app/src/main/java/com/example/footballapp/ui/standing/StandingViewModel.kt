@@ -1,5 +1,6 @@
 package com.example.footballapp.ui.standing
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -16,9 +17,9 @@ import javax.inject.Inject
 @HiltViewModel
 class StandingViewModel @Inject constructor(
     val repository: StandingRepository
-): ViewModel() {
+) : ViewModel() {
 
-    private val _leagueTableLiveData = MutableLiveData<Resource<ArrayDeque<Standing>>>()
+    private val _leagueTableLiveData = MutableLiveData<Resource<List<Standing>>>()
     val leagueTableLiveData = _leagueTableLiveData
 
     fun getLeagueTable(id: String) = viewModelScope.launch {
@@ -30,14 +31,21 @@ class StandingViewModel @Inject constructor(
         _leagueTableLiveData.value = handleGetLeagueTableResponse(response)
     }
 
-    private fun handleGetLeagueTableResponse(response: Response<StandingResponse>): Resource<ArrayDeque<Standing>> {
-        val stack = ArrayDeque<Standing>()
-        if (response.isSuccessful) {
-            response.body().let { resultResponse ->
-                resultResponse?.table?.forEach {
-                    stack.addLast(it)
+    private fun handleGetLeagueTableResponse(response: Response<StandingResponse>): Resource<List<Standing>> {
+
+        if (response.body() != null) {
+            if (response.isSuccessful) {
+                response.body()?.let { resultResponse ->
+                    val standingResponse = resultResponse.table
+
+                    // sort by rank
+                    val list = standingResponse?.sortedWith(compareBy {
+                        it.intRank.toInt()
+                    })
+                    return Resource.success(list)
                 }
-                return Resource.success(stack)
+            } else {
+                return Resource.error(response.message())
             }
         }
         return Resource.error(response.message())

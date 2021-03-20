@@ -58,9 +58,7 @@ class TeamViewModel @Inject constructor(
     private fun handleGetTeamListResponse(response: Response<TeamResponse>): Resource<List<Team>> {
         if (response.isSuccessful) {
             response.body()?.let { resultResponse ->
-                Log.d("TeamViewModel", resultResponse.toString())
                 val teamResultResponse = resultResponse.teams
-                Log.d("TeamViewModel", resultResponse.teams.toString())
                 return Resource.success(teamResultResponse)
             }
         }

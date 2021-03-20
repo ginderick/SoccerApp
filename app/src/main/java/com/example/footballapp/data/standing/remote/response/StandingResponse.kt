@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 
 data class StandingResponse(
     @SerializedName("table")
-    val table: List<Standing>
+    val table: List<Standing>?
 )

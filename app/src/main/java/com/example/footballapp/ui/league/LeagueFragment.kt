@@ -1,9 +1,6 @@
 package com.example.footballapp.ui.league
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -20,6 +18,7 @@ import com.bumptech.glide.Glide
 import com.example.footballapp.R
 import com.example.footballapp.data.league.remote.response.League
 import com.example.footballapp.others.Status
+import com.example.footballapp.ui.general.SharedViewModel
 import com.example.footballapp.ui.team.TeamAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,8 +31,10 @@ class LeagueFragment : Fragment() {
 
 
     private val leagueViewModel: LeagueViewModel by viewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
+
+
     private lateinit var leaguePagerAdapter: LeaguePagerAdapter
-    private lateinit var sharedPreferences: SharedPreferences
     private lateinit var league: League
     private lateinit var teamAdapter: TeamAdapter
     private val args: LeagueFragmentArgs by navArgs()
@@ -57,10 +58,11 @@ class LeagueFragment : Fragment() {
         setupNavigation()
         setupSupportActionBar()
         setupViewPager()
-        setupSharedLeagueIdPref(league.idLeague)
+        socialMediaValidator()
 
 
         leagueViewModel.getLeagueDetail(league.idLeague)
+        sharedViewModel.setLeagueId(league.idLeague)
         leagueViewModel.leagueLiveData.observe(viewLifecycleOwner, {
             when (it.status) {
                 Status.LOADING -> progressBarInLeague.visibility = View.VISIBLE
@@ -68,6 +70,9 @@ class LeagueFragment : Fragment() {
                 Status.SUCCESS -> {
                     textViewLeagueName.text = it.data?.strLeague
                     textViewLeagueCountry.text = it.data?.strCountry
+                    img_fb_logo.setImageResource(R.drawable.logo_facebook)
+                    img_twitter_logo.setImageResource(R.drawable.logo_twitter)
+                    img_youtube_logo.setImageResource(R.drawable.logo_youtube)
 
                     Glide
                         .with(requireContext())
@@ -84,6 +89,51 @@ class LeagueFragment : Fragment() {
                 }
             }
         })
+    }
+
+    private fun socialMediaValidator() {
+
+        if (league.strFacebook != null) {
+            img_fb_logo.setOnClickListener {
+                val bundle = Bundle().apply {
+                    putString("url", league.strFacebook)
+                }
+                findNavController().navigate(
+                    R.id.action_navigation_league_to_socialMediaFragment,
+                    bundle
+                )
+            }
+        } else {
+            Toast.makeText(activity, "Facebook account not available", Toast.LENGTH_SHORT).show()
+        }
+
+        if (league.strTwitter != null) {
+            img_twitter_logo.setOnClickListener {
+                val bundle = Bundle().apply {
+                    putString("url", league.strTwitter)
+                }
+                findNavController().navigate(
+                    R.id.action_navigation_league_to_socialMediaFragment,
+                    bundle
+                )
+            }
+        } else {
+            Toast.makeText(activity, "Twitter account not available", Toast.LENGTH_SHORT).show()
+        }
+
+        if (league.strYoutube != null) {
+            img_youtube_logo.setOnClickListener {
+                val bundle = Bundle().apply {
+                    putString("url", league.strYoutube)
+                }
+                findNavController().navigate(
+                    R.id.action_navigation_league_to_socialMediaFragment,
+                    bundle
+                )
+            }
+        } else {
+            Toast.makeText(activity, "Twitter account not available", Toast.LENGTH_SHORT).show()
+        }
     }
 
 
@@ -116,13 +166,4 @@ class LeagueFragment : Fragment() {
             tab.text = pageTitles[position]
         }.attach()
     }
-
-    private fun setupSharedLeagueIdPref(leagueId: String) {
-        sharedPreferences = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
-        with (sharedPreferences.edit()) {
-            putString("league", null)
-            apply()
-        }
-    }
-
 }

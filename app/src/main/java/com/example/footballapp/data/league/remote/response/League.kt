@@ -38,5 +38,20 @@ data class League(
     @SerializedName("strLogo")
     @Expose
     val strLogo: String = "",
+
+    @SerializedName("strFacebook")
+    @Expose
+    val strFacebook: String? = "",
+
+    @SerializedName("strTwitter")
+    @Expose
+    val strTwitter: String? = "",
+
+    @SerializedName("strYoutube")
+    @Expose
+    val strYoutube: String? = "",
+
+
+
     
 ): Serializable

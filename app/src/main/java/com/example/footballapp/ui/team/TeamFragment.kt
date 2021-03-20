@@ -8,11 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.footballapp.databinding.FragmentTeamBinding
 import com.example.footballapp.others.Status
+import com.example.footballapp.ui.general.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_team.*
 
@@ -20,8 +22,9 @@ import kotlinx.android.synthetic.main.fragment_team.*
 class TeamFragment : Fragment() {
 
     private val teamViewModel: TeamViewModel by viewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
+
     private lateinit var teamAdapter: TeamAdapter
-    private lateinit var sharedPreferences: SharedPreferences
     private lateinit var leagueId: String
 
 
@@ -40,9 +43,12 @@ class TeamFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupRecyclerView()
-        getLeagueSharedPref()
 
-        teamViewModel.getTeamList(leagueId)
+        sharedViewModel.leagueId.observe(viewLifecycleOwner, {
+            leagueId = it
+            teamViewModel.getTeamList(leagueId)
+        })
+
         teamViewModel.teamListLiveData.observe(viewLifecycleOwner, {
             when (it.status) {
                 Status.LOADING -> {
@@ -63,10 +69,6 @@ class TeamFragment : Fragment() {
         })
     }
 
-    private fun getLeagueSharedPref() {
-        sharedPreferences = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
-        leagueId = sharedPreferences.getString("league", "4328")!!
-    }
 
     private fun setupRecyclerView() {
         teamAdapter = TeamAdapter()

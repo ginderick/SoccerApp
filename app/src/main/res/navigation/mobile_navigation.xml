@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_navigation_league_to_navigation_team_detail"
             app:destination="@id/navigation_team_detail" />
+        <action
+            android:id="@+id/action_navigation_league_to_socialMediaFragment"
+            app:destination="@id/socialMediaFragment" />
     </fragment>
 
     <fragment
@@ -47,5 +50,13 @@
         <action
             android:id="@+id/action_navigation_home_to_navigation_league"
             app:destination="@id/navigation_league" />
+    </fragment>
+    <fragment
+        android:id="@+id/socialMediaFragment"
+        android:name="com.example.footballapp.ui.webview.SocialMediaFragment"
+        android:label="SocialMediaFragment" >
+        <argument
+            android:name="url"
+            app:argType="string" />
     </fragment>
 </navigation>

@@ -39,8 +39,7 @@
                 android:layout_width="@dimen/dimen_100dp"
                 android:layout_height="@dimen/dimen_100dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,7 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="25dp"
                 android:textSize="@dimen/dimen_text_16sp"
                 android:textStyle="bold"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -65,10 +64,54 @@
                 android:layout_marginStart="@dimen/dimen_8dp"
                 android:layout_marginTop="@dimen/dimen_8dp"
                 android:textSize="@dimen/dimen_text_14sp"
-                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@id/imgLeague"
                 app:layout_constraintTop_toBottomOf="@id/textViewLeagueName"
                 tools:text="League Country" />
+
+            <ImageView
+                android:id="@+id/img_fb_logo"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="@dimen/dimen_16dp"
+                android:layout_marginBottom="@dimen/dimen_10dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:textSize="@dimen/dimen_text_14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/imgLeague"
+                app:layout_constraintTop_toBottomOf="@id/textViewLeagueCountry"
+                tools:src="@drawable/logo_facebook" />
+
+            <ImageView
+                android:id="@+id/img_twitter_logo"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="@dimen/dimen_16dp"
+                android:layout_marginBottom="@dimen/dimen_10dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:textSize="@dimen/dimen_text_14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/img_fb_logo"
+                app:layout_constraintTop_toBottomOf="@id/textViewLeagueCountry"
+                tools:src="@drawable/logo_twitter" />
+
+            <ImageView
+                android:id="@+id/img_youtube_logo"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="@dimen/dimen_16dp"
+                android:layout_marginBottom="@dimen/dimen_10dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:textSize="@dimen/dimen_text_14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/img_twitter_logo"
+                app:layout_constraintTop_toBottomOf="@id/textViewLeagueCountry"
+                tools:src="@drawable/logo_youtube" />
 
             <ProgressBar
                 android:id="@+id/progressBarInLeague"
