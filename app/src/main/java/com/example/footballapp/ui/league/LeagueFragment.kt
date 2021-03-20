@@ -1,12 +1,10 @@
 package com.example.footballapp.ui.league
 
 import android.os.Bundle
+import android.util.Log
+import android.view.*
 
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -20,6 +18,7 @@ import com.example.footballapp.data.league.remote.response.League
 import com.example.footballapp.others.Status
 import com.example.footballapp.ui.general.SharedViewModel
 import com.example.footballapp.ui.team.TeamAdapter
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_league.*
@@ -27,7 +26,6 @@ import kotlinx.android.synthetic.main.fragment_league.*
 
 @AndroidEntryPoint
 class LeagueFragment : Fragment() {
-
 
 
     private val leagueViewModel: LeagueViewModel by viewModels()
@@ -38,7 +36,6 @@ class LeagueFragment : Fragment() {
     private lateinit var league: League
     private lateinit var teamAdapter: TeamAdapter
     private val args: LeagueFragmentArgs by navArgs()
-
 
 
     override fun onCreateView(
@@ -56,9 +53,13 @@ class LeagueFragment : Fragment() {
 
         teamAdapter = TeamAdapter()
         setupNavigation()
-        setupSupportActionBar()
         setupViewPager()
+        setupToolBar()
         socialMediaValidator()
+
+
+
+
 
 
         leagueViewModel.getLeagueDetail(league.idLeague)
@@ -137,16 +138,6 @@ class LeagueFragment : Fragment() {
     }
 
 
-
-    private fun setupSupportActionBar() {
-        setHasOptionsMenu(true)
-        (activity as AppCompatActivity).setSupportActionBar(toolbar)
-
-        toolbar.setNavigationOnClickListener {
-            it.findNavController().navigateUp()
-        }
-    }
-
     private fun setupNavigation() {
         val navController = findNavController()
         NavigationUI.setupWithNavController(toolbar, navController)
@@ -165,5 +156,25 @@ class LeagueFragment : Fragment() {
         TabLayoutMediator(tab_layout, viewPager) { tab, position ->
             tab.text = pageTitles[position]
         }.attach()
+    }
+
+    private fun setupToolBar() {
+        toolbar.inflateMenu(R.menu.league_menu)
+        toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.leagueAdd -> {
+                    leagueViewModel.saveLeague(league)
+                    Snackbar.make(requireView(), "Successfully saved League", Snackbar.LENGTH_SHORT ).show()
+                    Log.d("LeagueFragment", "Add called")
+                    true
+                }
+                else -> false
+            }
+        }
+
+        toolbar.setNavigationIcon(R.drawable.ic_back)
+        toolbar.setNavigationOnClickListener {
+            it.findNavController().navigateUp()
+        }
     }
 }

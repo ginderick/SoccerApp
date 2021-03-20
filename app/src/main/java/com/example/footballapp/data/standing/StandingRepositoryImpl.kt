@@ -2,6 +2,7 @@ package com.example.footballapp.data.standing
 
 import com.example.footballapp.data.standing.remote.StandingApiInterface
 import com.example.footballapp.data.standing.remote.response.StandingResponse
+import com.example.footballapp.others.Resource
 import retrofit2.Response
 
 class StandingRepositoryImpl(
@@ -9,6 +10,6 @@ class StandingRepositoryImpl(
 ): StandingRepository {
 
     override suspend fun getLeagueTable(id: String): Response<StandingResponse> {
-        return apiService.getLeagueTable(id)
+        return  apiService.getLeagueTable(id)
     }
 }

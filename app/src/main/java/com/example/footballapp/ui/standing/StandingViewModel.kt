@@ -32,23 +32,17 @@ class StandingViewModel @Inject constructor(
     }
 
     private fun handleGetLeagueTableResponse(response: Response<StandingResponse>): Resource<List<Standing>> {
+        if (response.isSuccessful) {
+            response.body()?.let { resultResponse ->
+                val standingResponse = resultResponse.table
 
-        if (response.body() != null) {
-            if (response.isSuccessful) {
-                response.body()?.let { resultResponse ->
-                    val standingResponse = resultResponse.table
-
-                    // sort by rank
-                    val list = standingResponse?.sortedWith(compareBy {
-                        it.intRank.toInt()
-                    })
-                    return Resource.success(list)
-                }
-            } else {
-                return Resource.error(response.message())
+                // sort by rank
+                val list = standingResponse?.sortedWith(compareBy {
+                    it.intRank.toInt()
+                })
+                return Resource.success(list)
             }
         }
-        return Resource.error(response.message())
-
+        return Resource.error("Error")
     }
 }

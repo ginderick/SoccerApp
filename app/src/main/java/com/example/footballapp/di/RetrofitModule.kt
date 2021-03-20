@@ -2,19 +2,23 @@ package com.example.footballapp.di
 
 import com.example.footballapp.data.league.remote.LeagueApiInterface
 import com.example.footballapp.data.match.remote.MatchApiInterface
+import com.example.footballapp.data.standing.remote.CountryApiInterface
 import com.example.footballapp.data.standing.remote.StandingApiInterface
 import com.example.footballapp.data.team.remote.TeamApiInterface
 import com.example.footballapp.others.Constants
+import com.example.footballapp.utils.nullOnEmptyConverterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
+import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.lang.reflect.Type
 import javax.inject.Singleton
-
 
 
 @InstallIn(SingletonComponent::class)
@@ -36,7 +40,24 @@ object RetrofitModule {
     fun provideRetrofit(client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
-            .addConverterFactory(nullOnEmptyConverterFactory)
+            .addConverterFactory(object : Converter.Factory() {
+                fun converterFactory() = this
+                override fun responseBodyConverter(
+                    type: Type,
+                    annotations: Array<out Annotation>,
+                    retrofit: Retrofit
+                ) = object :
+                    Converter<ResponseBody, Any?> {
+                    val nextResponseBodyConverter = retrofit.nextResponseBodyConverter<Any?>(
+                        converterFactory(),
+                        type,
+                        annotations
+                    )
+
+                    override fun convert(value: ResponseBody) =
+                        if (value.contentLength() != 0L) nextResponseBodyConverter.convert(value) else null
+                }
+            })
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
@@ -64,6 +85,12 @@ object RetrofitModule {
     @Provides
     fun provideStandingService(retrofit: Retrofit): StandingApiInterface {
         return retrofit.create(StandingApiInterface::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideCountryService(retrofit: Retrofit): CountryApiInterface {
+        return retrofit.create(CountryApiInterface::class.java)
     }
 
 }

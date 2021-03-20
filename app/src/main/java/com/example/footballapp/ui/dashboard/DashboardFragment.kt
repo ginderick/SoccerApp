@@ -26,8 +26,7 @@ class DashboardFragment : Fragment() {
     ): View? {
         dashboardViewModel =
             ViewModelProvider(this).get(DashboardViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
-        return root
+        return inflater.inflate(R.layout.fragment_dashboard, container, false)
     }
 
 
@@ -39,10 +38,9 @@ class DashboardFragment : Fragment() {
             setOf(
                 R.id.navigation_home,
                 R.id.navigation_dashboard, // set all your top level destinations in here
-                R.id.navigation_notifications
+                R.id.navigation_search
             ) // don't forget the parentheses
         )
-
 
         toolbar.setupWithNavController(navController,appBarConfiguration)
     }

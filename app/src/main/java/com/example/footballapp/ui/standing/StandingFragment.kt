@@ -1,9 +1,6 @@
 package com.example.footballapp.ui.standing
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,18 +8,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.footballapp.R
-import com.example.footballapp.data.standing.remote.response.Standing
 import com.example.footballapp.databinding.FragmentStandingBinding
-import com.example.footballapp.databinding.FragmentTeamBinding
 import com.example.footballapp.others.Status
 import com.example.footballapp.ui.general.SharedViewModel
-import com.example.footballapp.ui.team.TeamAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_standing.*
-import kotlinx.android.synthetic.main.fragment_team.*
 
 @AndroidEntryPoint
 class StandingFragment : Fragment() {
@@ -50,7 +41,7 @@ class StandingFragment : Fragment() {
         setupRecyclerView()
 
         sharedViewModel.leagueId.observe(viewLifecycleOwner, {
-            leagueId = "4330"
+            leagueId = it
             standingViewModel.getLeagueTable(leagueId)
         })
 
@@ -77,7 +68,7 @@ class StandingFragment : Fragment() {
 
     private fun setupRecyclerView() {
         standingAdapter = StandingAdapter()
-        rvStandingragment.apply {
+        rvStandingFragment.apply {
             adapter = standingAdapter
             layoutManager = LinearLayoutManager(activity)
         }

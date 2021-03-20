@@ -124,7 +124,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvStandingragment"
+            android:id="@+id/rvStandingFragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:clipToPadding="false"

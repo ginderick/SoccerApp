@@ -87,7 +87,7 @@ class HomeFragment : Fragment() {
             setOf(
                 R.id.navigation_home,
                 R.id.navigation_dashboard, // set all your top level destinations in here
-                R.id.navigation_notifications
+                R.id.navigation_search
             )
         )
 

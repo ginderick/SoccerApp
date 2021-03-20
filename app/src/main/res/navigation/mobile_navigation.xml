@@ -28,10 +28,10 @@
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.footballapp.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_search"
+        android:name="com.example.footballapp.ui.search.SearchFragment"
+        android:label="SearchFragment"
+        tools:layout="@layout/fragment_search" />
 
     <fragment
         android:id="@+id/navigation_team_detail"
@@ -59,4 +59,6 @@
             android:name="url"
             app:argType="string" />
     </fragment>
+
+
 </navigation>
