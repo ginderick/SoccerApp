@@ -77,10 +77,12 @@
 
                 <TextView
                     android:id="@+id/tv_home_team_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/dimen_100dp"
                     android:layout_height="@dimen/dimen_20dp"
                     android:layout_marginStart="@dimen/dimen_20dp"
+                    android:ellipsize="end"
                     android:gravity="center"
+                    android:maxLines="1"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -113,10 +115,12 @@
 
                 <TextView
                     android:id="@+id/tv_away_team_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/dimen_100dp"
                     android:layout_height="@dimen/dimen_20dp"
                     android:layout_marginEnd="@dimen/dimen_20dp"
+                    android:ellipsize="end"
                     android:gravity="center"
+                    android:maxLines="1"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"

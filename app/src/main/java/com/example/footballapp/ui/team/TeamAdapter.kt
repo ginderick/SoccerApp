@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.footballapp.R
 import com.example.footballapp.data.team.remote.response.Team
 import com.example.footballapp.databinding.ItemTeamsBinding
 import com.example.footballapp.ui.league.LeagueFragmentDirections
@@ -73,6 +74,7 @@ class TeamViewHolder(
 
             Glide.with(itemView.context)
                 .load(item.strTeamBadge)
+                .placeholder(R.drawable.ic_image_placeholder)
                 .into(imgTeamLogo)
             executePendingBindings()
         }

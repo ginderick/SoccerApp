@@ -2,6 +2,7 @@ package com.example.footballapp.di
 
 import com.example.footballapp.data.league.remote.LeagueApiInterface
 import com.example.footballapp.data.match.remote.MatchApiInterface
+import com.example.footballapp.data.selectleague.remote.SelectLeagueApiInterface
 import com.example.footballapp.data.standing.remote.CountryApiInterface
 import com.example.footballapp.data.standing.remote.StandingApiInterface
 import com.example.footballapp.data.team.remote.TeamApiInterface
@@ -19,6 +20,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.lang.reflect.Type
 import javax.inject.Singleton
+
 
 
 @InstallIn(SingletonComponent::class)
@@ -40,24 +42,7 @@ object RetrofitModule {
     fun provideRetrofit(client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
-            .addConverterFactory(object : Converter.Factory() {
-                fun converterFactory() = this
-                override fun responseBodyConverter(
-                    type: Type,
-                    annotations: Array<out Annotation>,
-                    retrofit: Retrofit
-                ) = object :
-                    Converter<ResponseBody, Any?> {
-                    val nextResponseBodyConverter = retrofit.nextResponseBodyConverter<Any?>(
-                        converterFactory(),
-                        type,
-                        annotations
-                    )
-
-                    override fun convert(value: ResponseBody) =
-                        if (value.contentLength() != 0L) nextResponseBodyConverter.convert(value) else null
-                }
-            })
+            .addConverterFactory(nullOnEmptyConverterFactory)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
@@ -92,5 +77,14 @@ object RetrofitModule {
     fun provideCountryService(retrofit: Retrofit): CountryApiInterface {
         return retrofit.create(CountryApiInterface::class.java)
     }
+
+    @Singleton
+    @Provides
+    fun provideSelectLeagueService(retrofit: Retrofit): SelectLeagueApiInterface {
+        return retrofit.create(SelectLeagueApiInterface::class.java)
+    }
+
+
+
 
 }

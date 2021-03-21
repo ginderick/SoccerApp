@@ -34,6 +34,7 @@ class LeagueFragment : Fragment() {
 
     private lateinit var leaguePagerAdapter: LeaguePagerAdapter
     private lateinit var league: League
+    private lateinit var idleague: String
     private lateinit var teamAdapter: TeamAdapter
     private val args: LeagueFragmentArgs by navArgs()
 
@@ -43,27 +44,22 @@ class LeagueFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        idleague = args.idLeague
         return inflater.inflate(R.layout.fragment_league, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        league = args.league
+
 
         teamAdapter = TeamAdapter()
         setupNavigation()
         setupViewPager()
         setupToolBar()
-        socialMediaValidator()
 
 
-
-
-
-
-        leagueViewModel.getLeagueDetail(league.idLeague)
-        sharedViewModel.setLeagueId(league.idLeague)
+        leagueViewModel.getLeagueDetail(idleague)
+        sharedViewModel.setLeagueId(idleague)
         leagueViewModel.leagueLiveData.observe(viewLifecycleOwner, {
             when (it.status) {
                 Status.LOADING -> progressBarInLeague.visibility = View.VISIBLE
@@ -74,6 +70,9 @@ class LeagueFragment : Fragment() {
                     img_fb_logo.setImageResource(R.drawable.logo_facebook)
                     img_twitter_logo.setImageResource(R.drawable.logo_twitter)
                     img_youtube_logo.setImageResource(R.drawable.logo_youtube)
+
+                    socialMediaValidator(it.data!!)
+                    league = it.data
 
                     Glide
                         .with(requireContext())
@@ -92,9 +91,9 @@ class LeagueFragment : Fragment() {
         })
     }
 
-    private fun socialMediaValidator() {
+    private fun socialMediaValidator(league: League) {
 
-        if (league.strFacebook != null) {
+        if (!league.strFacebook.isNullOrEmpty()) {
             img_fb_logo.setOnClickListener {
                 val bundle = Bundle().apply {
                     putString("url", league.strFacebook)
@@ -105,10 +104,14 @@ class LeagueFragment : Fragment() {
                 )
             }
         } else {
-            Toast.makeText(activity, "Facebook account not available", Toast.LENGTH_SHORT).show()
+            img_fb_logo.setOnClickListener {
+                Toast.makeText(activity, "Facebook account not available", Toast.LENGTH_SHORT)
+                    .show()
+            }
+
         }
 
-        if (league.strTwitter != null) {
+        if (!league.strTwitter.isNullOrEmpty()) {
             img_twitter_logo.setOnClickListener {
                 val bundle = Bundle().apply {
                     putString("url", league.strTwitter)
@@ -119,10 +122,13 @@ class LeagueFragment : Fragment() {
                 )
             }
         } else {
-            Toast.makeText(activity, "Twitter account not available", Toast.LENGTH_SHORT).show()
+            img_twitter_logo.setOnClickListener {
+                Toast.makeText(activity, "Twitter account not available", Toast.LENGTH_SHORT).show()
+            }
+
         }
 
-        if (league.strYoutube != null) {
+        if (!league.strYoutube.isNullOrEmpty()) {
             img_youtube_logo.setOnClickListener {
                 val bundle = Bundle().apply {
                     putString("url", league.strYoutube)
@@ -133,7 +139,9 @@ class LeagueFragment : Fragment() {
                 )
             }
         } else {
-            Toast.makeText(activity, "Twitter account not available", Toast.LENGTH_SHORT).show()
+            img_youtube_logo.setOnClickListener {
+                Toast.makeText(activity, "Youtube account not available", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -164,7 +172,8 @@ class LeagueFragment : Fragment() {
             when (it.itemId) {
                 R.id.leagueAdd -> {
                     leagueViewModel.saveLeague(league)
-                    Snackbar.make(requireView(), "Successfully saved League", Snackbar.LENGTH_SHORT ).show()
+                    Snackbar.make(requireView(), "Successfully saved League", Snackbar.LENGTH_SHORT)
+                        .show()
                     Log.d("LeagueFragment", "Add called")
                     true
                 }

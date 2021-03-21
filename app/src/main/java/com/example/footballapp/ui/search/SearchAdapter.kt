@@ -8,12 +8,8 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.footballapp.data.country.remote.response.Country
-import com.example.footballapp.data.team.remote.response.Team
 import com.example.footballapp.databinding.ItemCountryBinding
-import com.example.footballapp.databinding.ItemTeamsBinding
-import com.example.footballapp.ui.league.LeagueFragmentDirections
 
 class SearchAdapter() :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -52,21 +48,21 @@ class SearchViewHolder(
     private val binding: ItemCountryBinding
 ) :
     RecyclerView.ViewHolder(binding.root) {
-//    init {
-//        binding.setClickListener {
-//            binding.country?.let { country ->
-//                navigateToTeam(country, it)
-//            }
-//        }
-//    }
+    init {
+        binding.setClickListener {
+            binding.country?.let { country ->
+                navigateToSelectLeague(country.countries, it)
+            }
+        }
+    }
 
-//    private fun navigateToTeam(country: Country, view: View) {
-//        val direction =
-//            LeagueFragmentDirections.actionNavigationLeagueToNavigationTeamDetail(
-//                country
-//            )
-//        view.findNavController().navigate(direction)
-//    }
+    private fun navigateToSelectLeague(country: String, view: View) {
+        val direction =
+            SearchFragmentDirections.actionNavigationSearchToSelectLeagueFragment(
+                country
+            )
+        view.findNavController().navigate(direction)
+    }
 
     fun bind(item: Country) {
         binding.apply {

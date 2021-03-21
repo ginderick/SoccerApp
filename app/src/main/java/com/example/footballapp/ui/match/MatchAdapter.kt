@@ -63,6 +63,7 @@ class MatchViewHolder(
             tvMatchDate.text = item.dateEvent
             Glide.with(itemView.context)
                 .load(item.strThumb)
+                .placeholder(R.drawable.ic_image_placeholder)
                 .into(ivMatchThumbnail)
             executePendingBindings()
             expandMatchButton.setImageResource(R.drawable.ic_baseline_expand_more_24)

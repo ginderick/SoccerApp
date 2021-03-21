@@ -27,22 +27,33 @@ class StandingViewModel @Inject constructor(
     }
 
     private suspend fun safeGetLeagueTable(id: String) {
-        val response = repository.getLeagueTable(id)
-        _leagueTableLiveData.value = handleGetLeagueTableResponse(response)
-    }
+        repository.getLeagueTable(id).observeForever {
+            Log.d("retrofit", "StandingViewModel" + it.body()?.table.toString())
 
-    private fun handleGetLeagueTableResponse(response: Response<StandingResponse>): Resource<List<Standing>> {
-        if (response.isSuccessful) {
-            response.body()?.let { resultResponse ->
-                val standingResponse = resultResponse.table
-
-                // sort by rank
-                val list = standingResponse?.sortedWith(compareBy {
-                    it.intRank.toInt()
-                })
-                return Resource.success(list)
-            }
+            // sort by rank
+            val list = it.body()?.table?.sortedWith(compareBy {
+                it.intRank.toInt()
+            })
+            _leagueTableLiveData.value = Resource.success(list)
         }
-        return Resource.error("Error")
     }
+
+//    private fun handleGetLeagueTableResponse(response: Response<StandingResponse>): Resource<List<Standing>> {
+//        if (response.isSuccessful) {
+//            response.body()?.let { resultResponse ->
+//                val standingResponse = resultResponse.table
+//
+//                // sort by rank
+//                val list = standingResponse?.sortedWith(compareBy {
+//                    it.intRank.toInt()
+//                })
+//                return Resource.success(list)
+//            }
+//        }
+//        return Resource.error("Error")
+//    }
 }
+
+
+
+

@@ -11,8 +11,8 @@
         android:label="@string/title_league"
         tools:layout="@layout/fragment_league">
         <argument
-            android:name="league"
-            app:argType="com.example.footballapp.data.league.remote.response.League" />
+            android:name="idLeague"
+            app:argType="string" />
         <action
             android:id="@+id/action_navigation_league_to_navigation_team_detail"
             app:destination="@id/navigation_team_detail" />
@@ -31,7 +31,11 @@
         android:id="@+id/navigation_search"
         android:name="com.example.footballapp.ui.search.SearchFragment"
         android:label="SearchFragment"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_navigation_search_to_selectLeagueFragment"
+            app:destination="@id/selectLeagueFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_team_detail"
@@ -54,10 +58,23 @@
     <fragment
         android:id="@+id/socialMediaFragment"
         android:name="com.example.footballapp.ui.webview.SocialMediaFragment"
-        android:label="SocialMediaFragment" >
+        android:label="SocialMediaFragment"
+        tools:layout="@layout/fragment_social_media">
         <argument
             android:name="url"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectLeagueFragment"
+        android:name="com.example.footballapp.ui.selectleague.SelectLeagueFragment"
+        android:label="SelectLeagueFragment"
+        tools:layout="@layout/fragment_select_league" >
+        <argument
+            android:name="country"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_selectLeagueFragment_to_navigation_league"
+            app:destination="@id/navigation_league" />
     </fragment>
 
 

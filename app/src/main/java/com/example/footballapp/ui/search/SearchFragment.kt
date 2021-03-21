@@ -63,8 +63,9 @@ class SearchFragment : Fragment() {
                 }
             }
         })
-
     }
+
+
 
     private fun setupNavigation() {
         val navController = findNavController()

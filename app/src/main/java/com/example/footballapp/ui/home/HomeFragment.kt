@@ -41,7 +41,7 @@ class HomeFragment : Fragment() {
 
         homeAdapter.setOnItemClickListener {
             val bundle = Bundle().apply {
-                putSerializable("league", it)
+                putString("idLeague", it)
             }
             findNavController().navigate(
                 R.id.action_navigation_home_to_navigation_league,

@@ -28,7 +28,7 @@ class HomeAdapter() :
                     .into(imgLeagues)
 
                 setOnClickListener {
-                    onItemClickListener?.let { it(data) }
+                    onItemClickListener?.let { it(data.idLeague) }
                 }
             }
         }
@@ -64,10 +64,10 @@ class HomeAdapter() :
 
     override fun getItemCount() = differ.currentList.size
 
-    fun setOnItemClickListener(listener: (League) -> Unit) {
+    fun setOnItemClickListener(listener: (String) -> Unit) {
         onItemClickListener = listener
     }
 
-    private var onItemClickListener: ((League) -> Unit)? = null
+    private var onItemClickListener: ((String) -> Unit)? = null
 
 }
