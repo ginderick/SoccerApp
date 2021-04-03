@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dimen_10dp">
+
+        <TextView
+            android:id="@+id/tv_team_matches_played_header"
+            android:layout_width="@dimen/dimen_20dp"
+            android:layout_height="@dimen/dimen_20dp"
+            android:layout_marginStart="155dp"
+            android:gravity="end"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="12sp"
+            android:text="MP"
+            tools:text="MP" />
+
+
+        <TextView
+            android:id="@+id/tv_team_win_header"
+            android:layout_width="@dimen/dimen_20dp"
+            android:layout_height="@dimen/dimen_20dp"
+            android:layout_marginStart="@dimen/dimen_10dp"
+            android:gravity="end"
+            app:layout_constraintStart_toEndOf="@+id/tv_team_matches_played_header"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="12sp"
+            android:text="W"
+            tools:text="W" />
+
+        <TextView
+            android:id="@+id/tv_team_draw_header"
+            android:layout_width="@dimen/dimen_20dp"
+            android:layout_height="@dimen/dimen_20dp"
+            android:layout_marginStart="@dimen/dimen_10dp"
+            android:gravity="end"
+            app:layout_constraintStart_toEndOf="@+id/tv_team_win_header"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="12sp"
+            android:text="D"
+            tools:text="D" />
+
+        <TextView
+            android:id="@+id/tv_team_loss_header"
+            android:layout_width="@dimen/dimen_20dp"
+            android:layout_height="@dimen/dimen_20dp"
+            android:layout_marginStart="@dimen/dimen_10dp"
+            android:gravity="end"
+            app:layout_constraintStart_toEndOf="@+id/tv_team_draw_header"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="12sp"
+            android:text="L"
+            tools:text="L" />
+
+        <TextView
+            android:id="@+id/tv_team_goals_for_header"
+            android:layout_width="@dimen/dimen_20dp"
+            android:layout_height="@dimen/dimen_20dp"
+            android:layout_marginStart="@dimen/dimen_10dp"
+            android:gravity="end"
+            app:layout_constraintStart_toEndOf="@+id/tv_team_loss_header"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="12sp"
+            android:text="GF"
+            tools:text="GF" />
+
+        <TextView
+            android:id="@+id/tv_team_goals_against_header"
+            android:layout_width="@dimen/dimen_20dp"
+            android:layout_height="@dimen/dimen_20dp"
+            android:layout_marginStart="@dimen/dimen_10dp"
+            android:gravity="end"
+            app:layout_constraintStart_toEndOf="@+id/tv_team_goals_for_header"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="12sp"
+            android:text="GA"
+            tools:text="GA" />
+
+        <TextView
+            android:id="@+id/tv_team_goals_difference_header"
+            android:layout_width="@dimen/dimen_20dp"
+            android:layout_height="@dimen/dimen_20dp"
+            android:layout_marginStart="@dimen/dimen_10dp"
+            android:gravity="end"
+            app:layout_constraintStart_toEndOf="@+id/tv_team_goals_against_header"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="12sp"
+            android:text="GD"
+            tools:text="GD" />
+
+        <TextView
+            android:id="@+id/tv_team_points_header"
+            android:layout_width="@dimen/dimen_20dp"
+            android:layout_height="@dimen/dimen_20dp"
+            android:layout_marginStart="@dimen/dimen_10dp"
+            android:gravity="end"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/tv_team_goals_difference_header"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="Pts"
+            tools:text="Pts" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="20dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

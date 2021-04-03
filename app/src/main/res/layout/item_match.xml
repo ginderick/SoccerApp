@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="match"
+            type="com.example.footballapp.data.match.remote.response.Match" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_20dp"
+        app:cardCornerRadius="@dimen/dimen_10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_match_thumbnail"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_150dp"
+                android:scaleType="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_league_name"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_20dp"
+                android:gravity="center"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_match_thumbnail"
+                tools:text="English Premiere League" />
+
+            <TextView
+                android:id="@+id/tv_match_date"
+                android:layout_width="@dimen/dimen_80dp"
+                android:layout_height="@dimen/dimen_20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center"
+                android:textSize="@dimen/dimen_text_14sp"
+                app:layout_constraintBottom_toTopOf="@id/expandable_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_league_name"
+                tools:text="Mar 13, 2021" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/expandable_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10dp"
+                android:layout_marginBottom="@dimen/dimen_20dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_match_date">
+
+                <TextView
+                    android:id="@+id/tv_home_team_name"
+                    android:layout_width="@dimen/dimen_100dp"
+                    android:layout_height="@dimen/dimen_20dp"
+                    android:layout_marginStart="@dimen/dimen_20dp"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Arsenal" />
+
+                <TextView
+                    android:id="@+id/tv_separator"
+                    android:layout_width="@dimen/dimen_20dp"
+                    android:layout_height="@dimen/dimen_20dp"
+                    android:gravity="center"
+                    android:text="-"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="-" />
+
+                <TextView
+                    android:id="@+id/tv_home_team_score"
+                    android:layout_width="@dimen/dimen_20dp"
+                    android:layout_height="@dimen/dimen_20dp"
+                    android:layout_marginLeft="100dp"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_separator"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="2" />
+
+                <TextView
+                    android:id="@+id/tv_away_team_name"
+                    android:layout_width="@dimen/dimen_100dp"
+                    android:layout_height="@dimen/dimen_20dp"
+                    android:layout_marginEnd="@dimen/dimen_20dp"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Chelsea" />
+
+                <TextView
+                    android:id="@+id/tv_away_team_score"
+                    android:layout_width="@dimen/dimen_20dp"
+                    android:layout_height="@dimen/dimen_20dp"
+                    android:layout_marginRight="100dp"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tv_separator"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="2" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageButton
+                android:id="@+id/expand_match_button"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_20dp"
+                android:background="@color/colorTransparent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_league_name"
+                tools:src="@drawable/ic_baseline_expand_more_24" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>

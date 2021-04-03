@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="standing"
+            type="com.example.footballapp.data.standing.remote.response.Standing" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dimen_10dp">
+
+        <TextView
+            android:id="@+id/tv_team_rank"
+            android:layout_width="@dimen/dimen_20dp"
+            android:layout_height="@dimen/dimen_20dp"
+            android:layout_marginStart="5dp"
+            android:gravity="end"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="12sp"
+            tools:text="20" />
+
+        <ImageView
+            android:id="@+id/img_team_logo"
+            android:layout_width="@dimen/dimen_20dp"
+            android:layout_height="@dimen/dimen_20dp"
+            android:layout_marginStart="@dimen/dimen_10dp"
+            app:layout_constraintStart_toEndOf="@id/tv_team_rank"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_team_name"
+            android:layout_width="@dimen/dimen_80dp"
+            android:layout_height="@dimen/dimen_20dp"
+            android:layout_marginStart="@dimen/dimen_10dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            app:layout_constraintStart_toEndOf="@id/img_team_logo"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="12sp"
+            tools:text="Arsenal" />
+
+        <TextView
+            android:id="@+id/tv_team_matches_played"
+            android:layout_width="@dimen/dimen_20dp"
+            android:layout_height="@dimen/dimen_20dp"
+            android:layout_marginStart="@dimen/dimen_10dp"
+            android:gravity="end"
+            app:layout_constraintStart_toEndOf="@+id/tv_team_name"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="12sp"
+            tools:text="322" />
+
+        <TextView
+            android:id="@+id/tv_team_win"
+            android:layout_width="@dimen/dimen_20dp"
+            android:layout_height="@dimen/dimen_20dp"
+            android:layout_marginStart="@dimen/dimen_10dp"
+            android:gravity="end"
+            app:layout_constraintStart_toEndOf="@+id/tv_team_matches_played"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="12sp"
+            tools:text="322" />
+
+        <TextView
+            android:id="@+id/tv_team_draw"
+            android:layout_width="@dimen/dimen_20dp"
+            android:layout_height="@dimen/dimen_20dp"
+            android:layout_marginStart="@dimen/dimen_10dp"
+            android:gravity="end"
+            app:layout_constraintStart_toEndOf="@+id/tv_team_win"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="12sp"
+            tools:text="123" />
+
+        <TextView
+            android:id="@+id/tv_team_loss"
+            android:layout_width="@dimen/dimen_20dp"
+            android:layout_height="@dimen/dimen_20dp"
+            android:layout_marginStart="@dimen/dimen_10dp"
+            android:gravity="end"
+            app:layout_constraintStart_toEndOf="@+id/tv_team_draw"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="12sp"
+            tools:text="123" />
+
+        <TextView
+            android:id="@+id/tv_team_goals_for"
+            android:layout_width="@dimen/dimen_20dp"
+            android:layout_height="@dimen/dimen_20dp"
+            android:layout_marginStart="@dimen/dimen_10dp"
+            android:gravity="end"
+            app:layout_constraintStart_toEndOf="@+id/tv_team_loss"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="12sp"
+            tools:text="123" />
+
+        <TextView
+            android:id="@+id/tv_team_goals_against"
+            android:layout_width="@dimen/dimen_20dp"
+            android:layout_height="@dimen/dimen_20dp"
+            android:layout_marginStart="@dimen/dimen_10dp"
+            android:gravity="end"
+            app:layout_constraintStart_toEndOf="@+id/tv_team_goals_for"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="12sp"
+            tools:text="123" />
+
+        <TextView
+            android:id="@+id/tv_team_goals_difference"
+            android:layout_width="@dimen/dimen_20dp"
+            android:layout_height="@dimen/dimen_20dp"
+            android:layout_marginStart="@dimen/dimen_10dp"
+            android:gravity="end"
+            app:layout_constraintStart_toEndOf="@+id/tv_team_goals_against"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="12sp"
+            tools:text="123" />
+
+        <TextView
+            android:id="@+id/tv_team_points"
+            android:layout_width="@dimen/dimen_20dp"
+            android:layout_height="@dimen/dimen_20dp"
+            android:layout_marginStart="@dimen/dimen_10dp"
+            android:gravity="end"
+            app:layout_constraintStart_toEndOf="@+id/tv_team_goals_difference"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="12sp"
+            tools:text="123" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/colorGrey2"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

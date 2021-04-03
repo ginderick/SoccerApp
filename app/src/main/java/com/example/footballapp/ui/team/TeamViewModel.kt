@@ -1,34 +1,67 @@
 package com.example.footballapp.ui.team
 
-import android.app.Application
-import androidx.hilt.lifecycle.ViewModelInject
+
+import android.util.Log
 import androidx.lifecycle.*
 import com.example.footballapp.data.team.TeamRepository
 import com.example.footballapp.data.team.remote.response.Team
+import com.example.footballapp.data.team.remote.response.TeamResponse
+import com.example.footballapp.others.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
 class TeamViewModel @Inject constructor(
-    val teamRepository: TeamRepository,
-    application: Application
-    ) : AndroidViewModel(application) {
+    val teamRepository: TeamRepository
+) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
+    private val _searchTeamLiveData = MutableLiveData<Resource<List<Team>>>()
+    val searchTeamLiveData = _searchTeamLiveData
+
+    private val _teamListLiveData = MutableLiveData<Resource<List<Team>>>()
+    val teamListLiveData = _teamListLiveData
+
+    init {
+        _searchTeamLiveData.value = Resource.loading()
     }
 
-    private val _searchTeam = MutableLiveData<List<Team>>().apply { value = emptyList() }
-    val searchTeam: LiveData<List<Team>> = _searchTeam
+    fun searchTeam(query: String) = viewModelScope.launch {
+        safeSearchTeam(query)
+    }
 
+    private suspend fun safeSearchTeam(query: String) {
+        val response = teamRepository.getSearchTeam(query)
+        _searchTeamLiveData.value = handleSearchTeamResponse(response)
+    }
 
-    val text: LiveData<String> = _text
-
-
-    fun handleSearchTeam(query: String){
-        viewModelScope.launch {
-            teamRepository.getSearchTeam(query)
+    private fun handleSearchTeamResponse(response: Response<TeamResponse>): Resource<List<Team>> {
+        if (response.isSuccessful) {
+            response.body()?.let { resultResponse ->
+                val teamResultResponse = resultResponse.teams
+                return Resource.success(teamResultResponse)
+            }
         }
+        return Resource.error(response.message())
+    }
+
+    fun getTeamList(id: String) = viewModelScope.launch {
+        safeGetTeamList(id)
+    }
+
+    private suspend fun safeGetTeamList(id: String) {
+        val response = teamRepository.getTeamList(id)
+        _teamListLiveData.value = handleGetTeamListResponse(response)
+    }
+
+    private fun handleGetTeamListResponse(response: Response<TeamResponse>): Resource<List<Team>> {
+        if (response.isSuccessful) {
+            response.body()?.let { resultResponse ->
+                val teamResultResponse = resultResponse.teams
+                return Resource.success(teamResultResponse)
+            }
+        }
+        return Resource.error(response.message())
     }
 }
